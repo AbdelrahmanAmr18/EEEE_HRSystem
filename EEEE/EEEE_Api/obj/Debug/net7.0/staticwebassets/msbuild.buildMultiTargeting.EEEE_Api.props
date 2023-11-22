@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\EEEE_Api.props" />
+</Project>

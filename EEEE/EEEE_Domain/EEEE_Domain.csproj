@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="EEEE_DataAccess">
+      <HintPath>..\EEEE_DataAccess\bin\Debug\net7.0\EEEE_DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="HRsystem_DataAccess">
+      <HintPath>D:\z   P r o j e c t s\HRsystem\BackendV2\HRsystem\HRsystem_DataAccess\bin\Debug\net6.0\HRsystem_DataAccess.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
