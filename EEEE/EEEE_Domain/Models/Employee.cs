@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace EEEE_Domain.Models
 {
     public enum Gener
     {
-        F,
-        M
+        F=1,
+        M=2
     }
     public class Employee
     {
@@ -15,7 +16,7 @@ namespace EEEE_Domain.Models
         [Required]
         public string Name { get; set; } = string.Empty;
         public int? Age { set; get; }
-        public Gener Gener { set; get; }
+        public Gener? Gener { set; get; }
 
         public DateTime? DateOfBirth { set; get; }
         [MaxLength(350)]
@@ -35,11 +36,13 @@ namespace EEEE_Domain.Models
         public string PhoneNumber { get; set; } = string.Empty;
         [Required]
         public string EmargancyContact { get; set; } = string.Empty;
+        /*should be deleted*/
         public decimal GrossSalary { set; get; }
         public decimal? Tax { get; set; }
         public decimal NetSalary { get; set; }
         public decimal? Appraisal { get; set; }
         public decimal? Deduction { get; set; }
+        /**/
         [Required]
         [DataType(DataType.EmailAddress)]
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
@@ -48,15 +51,17 @@ namespace EEEE_Domain.Models
 
 
         /*the relationship and navigation property */
-
-        public virtual Level Level { get; set; }
+        [JsonIgnore]
+        public virtual Level? Level { get; set; }
         [ForeignKey(nameof(Level))]
-        public int LevelId { get; set; }
+        public int? LevelId { get; set; }
 
         /*self relationship */
         [ForeignKey(nameof(Manager))]
-        public int ManagerId { get; set; }
-        public virtual Employee Manager { set; get; }
+       
+        public int? ManagerId { get; set; }
+        [JsonIgnore]
+        public virtual Employee? Manager { set; get; }
 
 
 

@@ -267,16 +267,16 @@ namespace EEEE_DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gener")
+                    b.Property<int?>("Gener")
                         .HasColumnType("int");
 
                     b.Property<decimal>("GrossSalary")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("LevelId")
+                    b.Property<int?>("LevelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ManagerId")
+                    b.Property<int?>("ManagerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -526,15 +526,11 @@ namespace EEEE_DataAccess.Migrations
                 {
                     b.HasOne("EEEE_Domain.Models.Level", "Level")
                         .WithMany("Employees")
-                        .HasForeignKey("LevelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LevelId");
 
                     b.HasOne("EEEE_Domain.Models.Employee", "Manager")
                         .WithMany()
-                        .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ManagerId");
 
                     b.Navigation("Level");
 

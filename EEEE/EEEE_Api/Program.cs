@@ -28,7 +28,7 @@ namespace EEEE_Api
                 options.UseSqlServer(builder.Configuration.GetConnectionString("connectionstring"),
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
-            builder.Services.AddTransient(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+            builder.Services.AddTransient(typeof(IUnitOfWork),typeof(UnitOfWork));
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -66,7 +66,7 @@ namespace EEEE_Api
             }
 
             app.UseAuthorization();
-
+            app.UseAuthentication();
 
             app.MapControllers();
 

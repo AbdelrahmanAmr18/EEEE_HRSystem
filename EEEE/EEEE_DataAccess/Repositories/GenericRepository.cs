@@ -1,9 +1,12 @@
 ﻿using EEEE_DataAccess.Context;
 using EEEE_Domain.Repositories;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,45 +16,39 @@ namespace EEEE_DataAccess.Repositories
     {
         protected ApplicationDbContext _context;
 
-        public GenericRepository(ApplicationDbContext context)
+        public GenericRepository(ApplicationDbContext context )
         {
             _context = context;
+           
         }
 
-        public T Find(Expression<Func<T, bool>> match, string[] includes = null)
+        public async Task<T> AddAsync(T entity)
+        {
+            await _context.Set<T>().AddAsync(entity);
+          // await _context.SaveChangesAsync();
+            return entity;
+        }
+
+        public Task<T> DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public T Find(Expression<Func<T, bool>> match, int take, int skip)
+        public Task<IEnumerable<T>> GetAllAsync()
         {
             throw new NotImplementedException();
-        }
-
-        public T Find(Expression<Func<T, bool>> match, int? take, int? skip, Expression<Func<T, object>> orderBy = null, string OrderByDirection = "ASC")
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<T> FindAll(Expression<Func<T, bool>> match, string[] includes = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public T GetById(int id)
-        {
-            return _context.Set<T>().Find(id);
         }
 
         public Task<T> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
+
+        public Task<T> UpdateAsync(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
  

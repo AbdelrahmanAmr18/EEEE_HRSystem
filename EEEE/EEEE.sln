@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EEEE_Domain", "EEEE_Domain\EEEE_Domain.csproj", "{D8743DED-478D-4B61-B3D8-27CF4DBBD22F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EEEE_Domain", "EEEE_Domain\EEEE_Domain.csproj", "{D8743DED-478D-4B61-B3D8-27CF4DBBD22F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EEEE_DataAccess", "EEEE_DataAccess\EEEE_DataAccess.csproj", "{0CC5EE0E-8A51-4325-BA64-8051937D9F5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EEEE_DataAccess", "EEEE_DataAccess\EEEE_DataAccess.csproj", "{0CC5EE0E-8A51-4325-BA64-8051937D9F5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EEEE_Api", "EEEE_Api\EEEE_Api.csproj", "{1D5E1150-8566-452B-8A13-3801AAC62263}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EEEE_Api", "EEEE_Api\EEEE_Api.csproj", "{1D5E1150-8566-452B-8A13-3801AAC62263}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

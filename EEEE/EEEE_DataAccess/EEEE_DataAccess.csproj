@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -18,6 +18,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EEEE_Domain\EEEE_Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<Reference Include="HRsystem_DataAccess">
+      <HintPath>D:\z   P r o j e c t s\HRsystem\BackendV2\HRsystem\HRsystem_DataAccess\bin\Debug\net6.0\HRsystem_DataAccess.dll</HintPath>
+    </Reference>-->
   </ItemGroup>
 
 </Project>
