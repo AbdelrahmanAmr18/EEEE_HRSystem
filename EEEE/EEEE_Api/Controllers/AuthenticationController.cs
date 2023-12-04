@@ -29,15 +29,13 @@ namespace EEEE_Api.Controllers
             this.roleManager = roleManager;
         }
 
-
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             var userExists = await userManager.FindByNameAsync(model.UserName);
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && (userExists == null))
             {
                 ApplicationUser user = new ApplicationUser();
-
 
                 user.Email = model.Email;
                 user.SecurityStamp = Guid.NewGuid().ToString();
@@ -45,8 +43,34 @@ namespace EEEE_Api.Controllers
                 IdentityResult result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return new JsonResult(new { success = true, message = "User Registered successfully." });
+
+                    var EmployeeRoleExists = await roleManager.FindByNameAsync("Employee");
+                    if (EmployeeRoleExists != null)
+                    {
+                        IdentityResult roleAddedResult = await userManager.AddToRoleAsync(user, EmployeeRoleExists.Name);
+                        if (roleAddedResult.Succeeded)
+                        {
+                            return new JsonResult(new { success = true, message = "User Registered successfully." });
+
+                        }
+                        return new JsonResult(new { success = false, message = $"Can't Assgin role to {user}" });
+                    }
+
+                    IdentityRole role = new IdentityRole();
+
+                    role.Name = "Employee";
+                    role.ConcurrencyStamp = Guid.NewGuid().ToString();
+                    IdentityResult roleResult = await roleManager.CreateAsync(role);
+                    IdentityResult roleCreatedAddedResult = await userManager.AddToRoleAsync(user, role.Name);
+                    if (roleCreatedAddedResult.Succeeded)
+                    {
+                        return new JsonResult(new { success = true, message = "User Registered successfully." });
+
+                    }
+
                 }
+
+
 
                 foreach (var error in result.Errors)
                 {
@@ -71,6 +95,7 @@ namespace EEEE_Api.Controllers
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(ClaimTypes.Expiration, DateTime.UtcNow.ToString())
                 };
 
                 foreach (var userRole in userRoles)
@@ -97,6 +122,40 @@ namespace EEEE_Api.Controllers
 
             return BadRequest();
             //return StatusCode(StatusCodes.Status400BadRequest, new Response { Status = "Error", Message = "User doesn't exist!" });
+        }
+
+        [HttpPost("AssginRole")]
+        public async Task<IActionResult> AssignRole([FromBody] AssignModel user)
+        {
+            ApplicationUser userExists = await userManager.FindByNameAsync(user.UserToAssign);
+            if (userExists != null)
+            {                
+
+                var EmployeeRoleExists = await roleManager.FindByNameAsync("Manager");
+                if (EmployeeRoleExists != null)
+                {
+                    IdentityResult roleAddedResult = await userManager.AddToRoleAsync(userExists, EmployeeRoleExists.Name);
+                    if (roleAddedResult.Succeeded)
+                    {
+                        return new JsonResult(new { success = true, message = "User Assigned successfully." });
+
+                    }
+                    return new JsonResult(new { success = false, message = $"Can't Assgin role to {userExists}" });
+                }
+
+                IdentityRole role = new IdentityRole();
+
+                role.Name = "Manager";
+                role.ConcurrencyStamp = Guid.NewGuid().ToString();
+                IdentityResult roleResult = await roleManager.CreateAsync(role);
+                IdentityResult roleCreatedAddedResult = await userManager.AddToRoleAsync(userExists, role.Name);
+                if (roleCreatedAddedResult.Succeeded)
+                {
+                    return new JsonResult(new { success = true, message = "User Assigned successfully." });
+
+                }
+            }
+            return BadRequest();
         }
 
         #region GenerateToken
@@ -175,7 +234,6 @@ namespace EEEE_Api.Controllers
         //}
 
         #endregion
-
 
     }
 }

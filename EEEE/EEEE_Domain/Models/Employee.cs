@@ -65,5 +65,7 @@ namespace EEEE_Domain.Models
 
 
 
+        public virtual ICollection<Excuses> Employees { get; set; } = new HashSet<Excuses>();
+
     }
 }

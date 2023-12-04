@@ -1,5 +1,6 @@
 ﻿using EEEE_DataAccess.Context;
 using EEEE_Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -16,16 +17,16 @@ namespace EEEE_DataAccess.Repositories
     {
         protected ApplicationDbContext _context;
 
-        public GenericRepository(ApplicationDbContext context )
+        public GenericRepository(ApplicationDbContext context)
         {
             _context = context;
-           
+
         }
 
         public async Task<T> AddAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
-          // await _context.SaveChangesAsync();
+            // await _context.SaveChangesAsync();
             return entity;
         }
 
@@ -34,21 +35,23 @@ namespace EEEE_DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().ToListAsync();
         }
 
-        public Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().FindAsync(id);
         }
 
-        public Task<T> UpdateAsync(T entity)
+        public T UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+
+            _context.Update(entity);
+            return entity;
+
         }
 
     }
 }
- 

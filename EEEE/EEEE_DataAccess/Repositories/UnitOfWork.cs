@@ -20,6 +20,7 @@ namespace EEEE_DataAccess.Repositories
         public IGenericRepository<Department> Departments { get; private set; }
         public IGenericRepository<Position> Positions { get; private set; }
         public IGenericRepository<Level> Levels { get; private set; }
+        public IGenericRepository<Excuses> Excuses { get; private set; }
 
 
         public IGenericRepository<ApplicationUser> Users { get; private set; }
@@ -36,7 +37,7 @@ namespace EEEE_DataAccess.Repositories
 
             Users = new GenericRepository<ApplicationUser>(_context);
             Employees = new GenericRepository<Employee>(_context);
-
+            Excuses= new GenericRepository<Excuses>(_context);
         }
 
         public int Complete()

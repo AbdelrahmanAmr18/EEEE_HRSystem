@@ -315,6 +315,49 @@ namespace EEEE_DataAccess.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("EEEE_Domain.Models.Excuses", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ExcuseStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExcuseStatusComment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Excuses");
+                });
+
             modelBuilder.Entity("EEEE_Domain.Models.Level", b =>
                 {
                     b.Property<int>("Id")
@@ -537,6 +580,15 @@ namespace EEEE_DataAccess.Migrations
                     b.Navigation("Manager");
                 });
 
+            modelBuilder.Entity("EEEE_Domain.Models.Excuses", b =>
+                {
+                    b.HasOne("EEEE_Domain.Models.Employee", "Employee")
+                        .WithMany("Employees")
+                        .HasForeignKey("EmployeeId");
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("EEEE_Domain.Models.Level", b =>
                 {
                     b.HasOne("EEEE_Domain.Models.Position", "Position")
@@ -623,6 +675,11 @@ namespace EEEE_DataAccess.Migrations
             modelBuilder.Entity("EEEE_Domain.Models.Department", b =>
                 {
                     b.Navigation("Positions");
+                });
+
+            modelBuilder.Entity("EEEE_Domain.Models.Employee", b =>
+                {
+                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("EEEE_Domain.Models.Level", b =>

@@ -18,9 +18,9 @@ namespace EEEE_Api.Controllers
         {
             _unitOfWork = unitOfWork;
         }
+
         [HttpPost]
         [Route("PostEmployee")]
-
         public IActionResult PostEmployee(Employee employee)
         {
             if (ModelState == null)
@@ -33,7 +33,6 @@ namespace EEEE_Api.Controllers
 
         [HttpPost]
         [Route("CreateNewEmp")]
-
         public async Task<IActionResult> CreateNewEmp(EmployeeModel employee)
         {
 
@@ -57,16 +56,15 @@ namespace EEEE_Api.Controllers
                 await _unitOfWork.CompleteAsync();
 
                 return Ok();
-
-
-
-
-
-
             }
             return BadRequest();
         }
 
-
+        [HttpGet]
+        [Route("GetEmp")]
+        public async Task<IActionResult> GetEmployee()
+        {
+            return Ok(await _unitOfWork.Employees.GetAllAsync());
+        }
     }
 }

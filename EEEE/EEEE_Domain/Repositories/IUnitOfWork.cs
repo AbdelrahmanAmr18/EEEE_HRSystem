@@ -19,11 +19,12 @@ namespace EEEE_DataAccess.Repositories
         IGenericRepository<Department> Departments { get; }
         IGenericRepository<Position> Positions { get; }
         IGenericRepository<Level> Levels { get; }
+        IGenericRepository<Excuses> Excuses { get; }
         IGenericRepository<ApplicationUser> Users { get; }
 
 
         int Complete();
-      Task<int> CompleteAsync();
+        Task<int> CompleteAsync();
 
     }
 }

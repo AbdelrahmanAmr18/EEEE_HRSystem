@@ -24,10 +24,5 @@ namespace EEEE_Domain.Models
         = new HashSet<Branch>();
 
 
-
-
-
-
-
     }
 }
