@@ -54,11 +54,8 @@ namespace EEEE_Api.Controllers
             return BadRequest();
         }
 
-        //  [Authorize(Roles = "Manager")]
-        // [Authorize(Roles = "Manager")]
-        //  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme ,Roles = "Manager")]
         [HttpPut("PutExcuse")]
         public async Task<IActionResult> PutExcuse([FromBody]ManagerExcuseModel excuse, [FromHeader]int excuseId)
         {

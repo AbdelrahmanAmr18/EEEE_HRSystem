@@ -42,14 +42,12 @@ namespace EEEE_Api.Controllers
                 newEmp.Name = employee.Name;
                 newEmp.Email = employee.Email;
                 newEmp.Age = employee.Age;
-                newEmp.Gener = employee.Gener;
+                newEmp.Gender = employee.Gender;
                 newEmp.DateOfBirth = employee.DateOfBirth;
-                newEmp.CurrentAddress = employee.CurrentAddress;
-                newEmp.PerminentAddress = employee.PerminentAddress;
-                newEmp.PostalCode = employee.PostalCode;
+                newEmp.Address = employee.Address;
+                newEmp.ArabicAddress = employee.ArabicAddress;
                 newEmp.PhoneNumber = employee.PhoneNumber;
                 newEmp.EmargancyContact = employee.EmargancyContact;
-                newEmp.NetSalary = employee.NetSalary;
                 newEmp.Email = employee.Email;
                 await _unitOfWork.Employees.AddAsync(newEmp);
 

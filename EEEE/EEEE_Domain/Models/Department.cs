@@ -1,30 +1,40 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace EEEE_Domain.Models
 {
+    [Table("Department")]
     public class Department
     {
-       
-   
 
+        [Required]
         public int Id { get; set; }
-		[Required]
+		
+        [Required]
 		public string Name { get; set; } = string.Empty;
-        [RegularExpression(@"^\+?[0-9\s.-]+$")]
+		public string ArabicName { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
-        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
-         ErrorMessage = "Invalid email address")]
+        public string MobileNumber { get; set; } = string.Empty;
         public string Email { get; set; }=string.Empty;
 		public string Description { get; set; } = string.Empty;
 
-        public virtual ICollection<Position> Positions { get; set; }
-        = new HashSet<Position>();
 
-        public virtual Branch Branch { get; set; }
 
         [ForeignKey(nameof(Branch))]
         public int BranchId { get; set; }
+        public virtual Branch Branch { get; set; }
+        public virtual ICollection<Position> Positions { get; set; } = new HashSet<Position>();
+
+
+        [ForeignKey(nameof(Parent))]
+        public int? ParentId { get; set; }
+        [JsonIgnore]
+        public virtual Department? Parent { set; get; }
+
+
+        public virtual ICollection<Level> Levels { get; set; } = new HashSet<Level>();
+
 
     }
 }

@@ -4,6 +4,7 @@ using EEEE_DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EEEE_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231204115022_some changes in database v4")]
+    partial class somechangesindatabasev4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,7 +153,7 @@ namespace EEEE_DataAccess.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Branch");
+                    b.ToTable("branches");
                 });
 
             modelBuilder.Entity("EEEE_Domain.Models.Company", b =>
@@ -191,7 +194,7 @@ namespace EEEE_DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Company");
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("EEEE_Domain.Models.Department", b =>
@@ -238,7 +241,7 @@ namespace EEEE_DataAccess.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("Department");
+                    b.ToTable("departments");
                 });
 
             modelBuilder.Entity("EEEE_Domain.Models.Employee", b =>
@@ -307,7 +310,7 @@ namespace EEEE_DataAccess.Migrations
 
                     b.HasIndex("ManagerId");
 
-                    b.ToTable("Employee");
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("EEEE_Domain.Models.Excuses", b =>
@@ -365,9 +368,6 @@ namespace EEEE_DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -378,9 +378,7 @@ namespace EEEE_DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("Level");
+                    b.ToTable("levels");
                 });
 
             modelBuilder.Entity("EEEE_Domain.Models.Position", b =>
@@ -410,7 +408,7 @@ namespace EEEE_DataAccess.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Position");
+                    b.ToTable("positions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -598,17 +596,6 @@ namespace EEEE_DataAccess.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("EEEE_Domain.Models.Level", b =>
-                {
-                    b.HasOne("EEEE_Domain.Models.Department", "Department")
-                        .WithMany("Levels")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-                });
-
             modelBuilder.Entity("EEEE_Domain.Models.Position", b =>
                 {
                     b.HasOne("EEEE_Domain.Models.Department", "Department")
@@ -683,8 +670,6 @@ namespace EEEE_DataAccess.Migrations
 
             modelBuilder.Entity("EEEE_Domain.Models.Department", b =>
                 {
-                    b.Navigation("Levels");
-
                     b.Navigation("Positions");
                 });
 
